@@ -210,9 +210,6 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void)setImage:(NSImage*)anImage {
-    [anImage retain];
-    [image release];
-    image = anImage;
 
     if (image != nil) {
         [self setNeedsDisplay:YES];
