@@ -67,8 +67,8 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     theItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [theItem retain];
 
-    view = [[AWTTrayIconView alloc] initWithTrayIcon:self];
-    [theItem setView:view];
+    // view = [[AWTTrayIconView alloc] initWithTrayIcon:self];
+    // [theItem setView:view];
 
     return self;
 }
@@ -83,9 +83,9 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     // the item's view to nil: it can lead to a crash in some scenarios.
     // The item will release the view later on, so just set the view's image
     // and tray icon to nil since we are done with it.
-    [view setImage: nil];
-    [view setTrayIcon: nil];
-    [view release];
+    // [view setImage: nil];
+    // [view setTrayIcon: nil];
+    // [view release];
 
     [theItem release];
 
@@ -93,7 +93,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void) setTooltip:(NSString *) tooltip{
-    [view setToolTip:tooltip];
+    // [view setToolTip:tooltip];
 }
 
 -(NSStatusItem *) theItem{
@@ -114,7 +114,8 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     CGFloat itemLength = scaledSize.width + 2.0*kImageInset;
     [theItem setLength:itemLength];
-    [view setImage:imagePtr];
+    // [view setImage:imagePtr];
+    theItem.button.image = imagePtr;
     theItem.button.image.template = true;
 
 }
@@ -129,8 +130,8 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     JNIEnv *env = [ThreadUtilities getJNIEnv];
 
     NSPoint eventLocation = [event locationInWindow];
-    NSPoint localPoint = [view convertPoint: eventLocation fromView: nil];
-    localPoint.y = [view bounds].size.height - localPoint.y;
+    // NSPoint localPoint = [view convertPoint: eventLocation fromView: nil];
+    // localPoint.y = [view bounds].size.height - localPoint.y;
 
     NSPoint absP = [NSEvent mouseLocation];
     NSEventType type = [event type];
@@ -149,22 +150,22 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     static JNF_CLASS_CACHE(jc_NSEvent, "sun/lwawt/macosx/NSEvent");
     static JNF_CTOR_CACHE(jctor_NSEvent, jc_NSEvent, "(IIIIIIIIDDI)V");
-    jobject jEvent = JNFNewObject(env, jctor_NSEvent,
-                                  [event type],
-                                  [event modifierFlags],
-                                  clickCount,
-                                  [event buttonNumber],
-                                  (jint)localPoint.x, (jint)localPoint.y,
-                                  (jint)absP.x, (jint)absP.y,
-                                  deltaY,
-                                  deltaX,
-                                  [AWTToolkit scrollStateWithEvent: event]);
-    CHECK_NULL(jEvent);
+    // jobject jEvent = JNFNewObject(env, jctor_NSEvent,
+    //                               [event type],
+    //                               [event modifierFlags],
+    //                               clickCount,
+    //                               [event buttonNumber],
+    //                               (jint)localPoint.x, (jint)localPoint.y,
+    //                               (jint)absP.x, (jint)absP.y,
+    //                               deltaY,
+    //                               deltaX,
+    //                               [AWTToolkit scrollStateWithEvent: event]);
+    // CHECK_NULL(jEvent);
 
-    static JNF_CLASS_CACHE(jc_TrayIcon, "sun/lwawt/macosx/CTrayIcon");
-    static JNF_MEMBER_CACHE(jm_handleMouseEvent, jc_TrayIcon, "handleMouseEvent", "(Lsun/lwawt/macosx/NSEvent;)V");
-    JNFCallVoidMethod(env, peer, jm_handleMouseEvent, jEvent);
-    (*env)->DeleteLocalRef(env, jEvent);
+    // static JNF_CLASS_CACHE(jc_TrayIcon, "sun/lwawt/macosx/CTrayIcon");
+    // static JNF_MEMBER_CACHE(jm_handleMouseEvent, jc_TrayIcon, "handleMouseEvent", "(Lsun/lwawt/macosx/NSEvent;)V");
+    // JNFCallVoidMethod(env, peer, jm_handleMouseEvent, jEvent);
+    // (*env)->DeleteLocalRef(env, jEvent);
 }
 
 @end //AWTTrayIcon
