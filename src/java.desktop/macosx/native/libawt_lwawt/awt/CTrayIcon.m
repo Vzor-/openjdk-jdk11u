@@ -114,7 +114,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     CGFloat itemLength = scaledSize.width + 2.0*kImageInset;
     [theItem setLength:itemLength];
-    imagePtr->template = true;
+    imagePtr.template = true;
     [view setImage:imagePtr];
 }
 
