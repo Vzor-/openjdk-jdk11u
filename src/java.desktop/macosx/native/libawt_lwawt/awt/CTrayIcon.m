@@ -114,8 +114,9 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     CGFloat itemLength = scaledSize.width + 2.0*kImageInset;
     [theItem setLength:itemLength];
-    [imagePtr setTemplate:true];
     [view setImage:imagePtr];
+    theItem.button.image.template = true;
+
 }
 
 - (NSPoint) getLocationOnScreen {
@@ -210,6 +211,9 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void)setImage:(NSImage*)anImage {
+    [anImage retain];
+    [image release];
+    image = anImage;
 
     if (image != nil) {
         [self setNeedsDisplay:YES];
