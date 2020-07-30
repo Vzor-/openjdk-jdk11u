@@ -131,6 +131,10 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     JNIEnv *env = [ThreadUtilities getJNIEnv];
 
     NSPoint eventLocation = [event locationInWindow];
+
+    NSPoint localPoint = [[statusItem button] convertPoint: eventLocation fromView: nil]
+    localPoint.y = [[statusItem button] bounds].size.height - localPoint.y;
+
     // NSPoint localPoint = [view convertPoint: eventLocation fromView: nil];
     // localPoint.y = [view bounds].size.height - localPoint.y;
 
@@ -151,22 +155,22 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     static JNF_CLASS_CACHE(jc_NSEvent, "sun/lwawt/macosx/NSEvent");
     static JNF_CTOR_CACHE(jctor_NSEvent, jc_NSEvent, "(IIIIIIIIDDI)V");
-    // jobject jEvent = JNFNewObject(env, jctor_NSEvent,
-    //                               [event type],
-    //                               [event modifierFlags],
-    //                               clickCount,
-    //                               [event buttonNumber],
-    //                               (jint)localPoint.x, (jint)localPoint.y,
-    //                               (jint)absP.x, (jint)absP.y,
-    //                               deltaY,
-    //                               deltaX,
-    //                               [AWTToolkit scrollStateWithEvent: event]);
-    // CHECK_NULL(jEvent);
+    jobject jEvent = JNFNewObject(env, jctor_NSEvent,
+                                  [event type],
+                                  [event modifierFlags],
+                                  clickCount,
+                                  [event buttonNumber],
+                                  (jint)localPoint.x, (jint)localPoint.y,
+                                  (jint)absP.x, (jint)absP.y,
+                                  deltaY,
+                                  deltaX,
+                                  [AWTToolkit scrollStateWithEvent: event]);
+    CHECK_NULL(jEvent);
 
-    // static JNF_CLASS_CACHE(jc_TrayIcon, "sun/lwawt/macosx/CTrayIcon");
-    // static JNF_MEMBER_CACHE(jm_handleMouseEvent, jc_TrayIcon, "handleMouseEvent", "(Lsun/lwawt/macosx/NSEvent;)V");
-    // JNFCallVoidMethod(env, peer, jm_handleMouseEvent, jEvent);
-    // (*env)->DeleteLocalRef(env, jEvent);
+    static JNF_CLASS_CACHE(jc_TrayIcon, "sun/lwawt/macosx/CTrayIcon");
+    static JNF_MEMBER_CACHE(jm_handleMouseEvent, jc_TrayIcon, "handleMouseEvent", "(Lsun/lwawt/macosx/NSEvent;)V");
+    JNFCallVoidMethod(env, peer, jm_handleMouseEvent, jEvent);
+    (*env)->DeleteLocalRef(env, jEvent);
 }
 
 @end //AWTTrayIcon
