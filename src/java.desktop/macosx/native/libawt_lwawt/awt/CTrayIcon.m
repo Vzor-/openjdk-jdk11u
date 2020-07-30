@@ -93,6 +93,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void) setTooltip:(NSString *) tooltip{
+    [[theItem button] setToolTip:tooltip];
     // [view setToolTip:tooltip];
 }
 
