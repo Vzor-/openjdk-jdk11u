@@ -289,7 +289,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     }
 }
 
-- (void) getMenu {
+- (NSMenu *) getMenu {
     JNIEnv *env = [ThreadUtilities getJNIEnv];
         static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
         static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
