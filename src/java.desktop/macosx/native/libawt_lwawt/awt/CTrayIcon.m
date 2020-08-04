@@ -70,6 +70,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     view = [[AWTTrayIconView alloc] initWithTrayIcon:self];
     // [theItem setView:view];
 
+    [theItem setMenu: [view getMenu]];
     return self;
 }
 
