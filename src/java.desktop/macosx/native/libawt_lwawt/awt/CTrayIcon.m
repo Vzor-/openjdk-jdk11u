@@ -67,7 +67,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     theItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [theItem retain];
 
-    // view = [[AWTTrayIconView alloc] initWithTrayIcon:self];
+    view = [[AWTTrayIconView alloc] initWithTrayIcon:self];
     // [theItem setView:view];
 
     return self;
@@ -287,6 +287,21 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
             [self setNeedsDisplay:YES];
         }
     }
+}
+
+- (void) getMenu {
+    JNIEnv *env = [ThreadUtilities getJNIEnv];
+        static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
+        static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
+        jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
+
+        if (res != 0) {
+            CPopupMenu *cmenu = jlong_to_ptr(res);
+            NSMenu* menu = [cmenu menu];
+            [menu setDelegate:self];
+            return menu;
+        }
+        return NULL;
 }
 
 - (void) mouseUp:(NSEvent *)event {

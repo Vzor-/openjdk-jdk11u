@@ -73,6 +73,7 @@ extern "C" {
 -(void)setImage:(NSImage*)anImage;
 -(void)setTrayIcon:(AWTTrayIcon*)theTrayIcon;
 -(void)addTrackingArea;
+-(NSMenu *)getMenu;
 
 @end //AWTTrayIconView
 
