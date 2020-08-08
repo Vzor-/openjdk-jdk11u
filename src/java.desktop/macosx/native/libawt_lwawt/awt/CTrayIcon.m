@@ -306,7 +306,10 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
         [menu setDelegate:self];
         return menu;
     } else {
-        NSLog(@"null java ref");                 
+        NSLog(@"null java ref");
+        NSMenu* menu = [[NSMenu alloc] initWithTitle:@""];
+        [menu setDelegate:self];
+        return menu;                 
     }
     return NULL;
 }
