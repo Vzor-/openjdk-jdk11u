@@ -74,10 +74,6 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     return self;
 }
 
--(void)menuWillOpen:(NSMenu *)menu{
-    self.setTooltip(@"worked");
-}
-
 -(void) dealloc {
     JNIEnv *env = [ThreadUtilities getJNIEnvUncached];
     JNFDeleteGlobalRef(env, peer);
@@ -100,6 +96,10 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 - (void) setTooltip:(NSString *) tooltip{
     [[theItem button] setToolTip:tooltip];
     // [view setToolTip:tooltip];
+}
+
+-(void)menuWillOpen:(NSMenu *)menu{
+    theItem.setTooltip(@"worked");
 }
 
 -(NSStatusItem *) theItem{
