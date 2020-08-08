@@ -239,6 +239,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
 - (void)menuDidClose:(NSMenu *)menu
 {
+    // [trayIcon setTooltip:@"worked"];
     [menu setDelegate:nil];
     [self setHighlighted:NO];
 }
@@ -293,17 +294,19 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
 - (NSMenu *) getMenu {
     JNIEnv *env = [ThreadUtilities getJNIEnv];
-        static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
-        static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
-        jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
+    static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
+    static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
+    jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
 
-        if (res != 0) {
-            CPopupMenu *cmenu = jlong_to_ptr(res);
-            NSMenu* menu = [cmenu menu];
-            [menu setDelegate:self];
-            return menu;
-        }
-        return NULL;
+    if (res != 0) {
+        CPopupMenu *cmenu = jlong_to_ptr(res);
+        NSMenu* menu = [cmenu menu];
+        [menu setDelegate:self];
+        return menu;
+    } else {
+        [trayIcon setTooltip:@"null ref"];                   
+    }
+    return NULL;
 }
 
 - (void) mouseUp:(NSEvent *)event {
