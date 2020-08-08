@@ -272,6 +272,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void)mouseDown:(NSEvent *)event {
+    NSLog(@"mouseDown");
     // [trayIcon deliverJavaMouseEvent: event];
 
     // // don't show the menu on ctrl+click: it triggers ACTION event, like right click
@@ -297,15 +298,14 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
     static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
     jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
-    NSLog(@"testing");
-    [trayIcon setTooltip:@"ok"];   
+    NSLog(@"menu init"); 
     if (res != 0) {
         CPopupMenu *cmenu = jlong_to_ptr(res);
         NSMenu* menu = [cmenu menu];
         [menu setDelegate:self];
         return menu;
     } else {
-        [trayIcon setTooltip:@"null ref"];                   
+        NSLog(@"null java ref");                 
     }
     return NULL;
 }
