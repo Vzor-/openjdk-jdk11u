@@ -99,6 +99,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 -(void)menuWillOpen:(NSMenu *)menu{
+    [[theItem button] setToolTip:@"worked"];
     [theItem setMenu: [view getMenu]];
 }
 
