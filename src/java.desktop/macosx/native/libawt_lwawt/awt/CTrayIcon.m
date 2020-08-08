@@ -98,11 +98,6 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     // [view setToolTip:tooltip];
 }
 
--(void)menuWillOpen:(NSMenu *)menu{
-    [[theItem button] setToolTip:@"worked"];
-    [theItem setMenu: [view getMenu]];
-}
-
 -(NSStatusItem *) theItem{
     return theItem;
 }
@@ -239,6 +234,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 - (void)menuWillOpen:(NSMenu *)menu
 {
     [self setHighlighted:YES];
+    [theTrayIcon setTooltip:@"worked"];
 }
 
 - (void)menuDidClose:(NSMenu *)menu
