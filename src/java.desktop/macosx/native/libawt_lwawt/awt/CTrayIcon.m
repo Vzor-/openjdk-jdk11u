@@ -251,7 +251,8 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
         newMenu = [[NSMenu alloc] initWithTitle:@""];
         [newMenu setDelegate:self]; 
     }
-    [trayIcon setMenu: newMenu];
+    [trayIcon setMenu: newMenu]
+    menu.attchMenu(newMenu);
     // [self setHighlighted:YES];
     // [trayIcon setTooltip:@"worked"];
     NSLog(@"Will open");
