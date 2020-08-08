@@ -233,15 +233,15 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
 - (void)menuWillOpen:(NSMenu *)menu
 {
-    [self setHighlighted:YES];
+    // [self setHighlighted:YES];
     // [trayIcon setTooltip:@"worked"];
 }
 
 - (void)menuDidClose:(NSMenu *)menu
 {
     // [trayIcon setTooltip:@"worked"];
-    [menu setDelegate:nil];
-    [self setHighlighted:NO];
+    // [menu setDelegate:nil];
+    // [self setHighlighted:NO];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
