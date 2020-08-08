@@ -74,6 +74,10 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     return self;
 }
 
+-(void)menuWillOpen:(NSMenu *)menu{
+    setTooltip(@"worked");
+}
+
 -(void) dealloc {
     JNIEnv *env = [ThreadUtilities getJNIEnvUncached];
     JNFDeleteGlobalRef(env, peer);
