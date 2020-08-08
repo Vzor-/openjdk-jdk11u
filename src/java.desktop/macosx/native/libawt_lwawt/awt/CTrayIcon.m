@@ -94,12 +94,12 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void) setTooltip:(NSString *) tooltip{
-    [[theItem button] setToolTip:tooltip];
+    [[theItem] setToolTip:tooltip];
     // [view setToolTip:tooltip];
 }
 
 -(void)menuWillOpen:(NSMenu *)menu{
-    theItem.setTooltip(@"worked");
+    [theItem setMenu: [view getMenu]];
 }
 
 -(NSStatusItem *) theItem{
