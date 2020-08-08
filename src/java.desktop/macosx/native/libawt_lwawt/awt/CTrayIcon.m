@@ -234,7 +234,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 - (void)menuWillOpen:(NSMenu *)menu
 {
     [self setHighlighted:YES];
-    [trayIcon setTooltip:@"worked"];
+    // [trayIcon setTooltip:@"worked"];
 }
 
 - (void)menuDidClose:(NSMenu *)menu
@@ -271,24 +271,24 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void)mouseDown:(NSEvent *)event {
-    [trayIcon deliverJavaMouseEvent: event];
+    // [trayIcon deliverJavaMouseEvent: event];
 
-    // don't show the menu on ctrl+click: it triggers ACTION event, like right click
-    if (([event modifierFlags] & NSControlKeyMask) == 0) {
-        //find CTrayIcon.getPopupMenuModel method and call it to get popup menu ptr.
-        JNIEnv *env = [ThreadUtilities getJNIEnv];
-        static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
-        static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
-        jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
+    // // don't show the menu on ctrl+click: it triggers ACTION event, like right click
+    // if (([event modifierFlags] & NSControlKeyMask) == 0) {
+    //     //find CTrayIcon.getPopupMenuModel method and call it to get popup menu ptr.
+    //     JNIEnv *env = [ThreadUtilities getJNIEnv];
+    //     static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
+    //     static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
+    //     jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
 
-        if (res != 0) {
-            CPopupMenu *cmenu = jlong_to_ptr(res);
-            NSMenu* menu = [cmenu menu];
-            [menu setDelegate:self];
-            [trayIcon.theItem popUpStatusItemMenu:menu];
-            [self setNeedsDisplay:YES];
-        }
-    }
+    //     if (res != 0) {
+    //         CPopupMenu *cmenu = jlong_to_ptr(res);
+    //         NSMenu* menu = [cmenu menu];
+    //         [menu setDelegate:self];
+    //         [trayIcon.theItem popUpStatusItemMenu:menu];
+    //         [self setNeedsDisplay:YES];
+    //     }
+    // }
 }
 
 - (NSMenu *) getMenu {
