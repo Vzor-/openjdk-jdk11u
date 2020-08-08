@@ -74,6 +74,10 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     return self;
 }
 
+-(void) setMenu:(NSMenu *) menu{
+    [theItem setMenu: menu];
+}
+
 -(void) dealloc {
     JNIEnv *env = [ThreadUtilities getJNIEnvUncached];
     JNFDeleteGlobalRef(env, peer);
@@ -233,6 +237,21 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
 - (void)menuWillOpen:(NSMenu *)menu
 {
+    JNIEnv *env = [ThreadUtilities getJNIEnv];
+    static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
+    static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
+    jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
+    NSMenu* menu;
+    if (res != 0) {
+        CPopupMenu *cmenu = jlong_to_ptr(res);
+        menu = [cmenu menu];
+        [menu setDelegate:self];
+    } else {
+        NSLog(@"null java ref");
+        menu = [[NSMenu alloc] initWithTitle:@""];
+        [menu setDelegate:self]; 
+    }
+    [trayIcon setMenu: menu];
     // [self setHighlighted:YES];
     // [trayIcon setTooltip:@"worked"];
     NSLog(@"Will open");

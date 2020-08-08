@@ -55,6 +55,7 @@ extern "C" {
 - (void) setImage:(NSImage *) imagePtr sizing:(BOOL)autosize;
 - (NSPoint) getLocationOnScreen;
 - (void) deliverJavaMouseEvent:(NSEvent*) event;
+- (void) setMenu:(NSMenu *)menu;
 
 @end //AWTTrayIcon
 
