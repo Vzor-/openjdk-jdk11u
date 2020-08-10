@@ -406,7 +406,7 @@ JNIEXPORT void JNICALL Java_java_awt_TrayIcon_initIDs
 }
 
 /*
- * Class: java_awt_TrayIcon
+ * Class: sun_lwawt_macosx_CTrayIcon
  * Method: nativeUpdateMenuRes
  * Signature: ()V
  */
