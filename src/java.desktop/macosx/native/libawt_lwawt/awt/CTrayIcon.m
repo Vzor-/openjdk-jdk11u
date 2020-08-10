@@ -410,7 +410,7 @@ JNIEXPORT void JNICALL Java_java_awt_TrayIcon_initIDs
  * Method: nativeUpdateMenuRes
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_java_awt_TrayIcon_nativeUpdateMenuRes
+JNIEXPORT void JNICALL Java_sun_lwawt_macosx_CTrayIcon_nativeUpdateMenuRes
 (JNIEnv *env, jclass cls) {
     NSLog(@"Made it!");
 }
