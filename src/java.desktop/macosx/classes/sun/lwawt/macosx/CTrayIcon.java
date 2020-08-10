@@ -107,7 +107,7 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
 
     private native long nativeCreate();
 
-    public native long nativeUpdateMenuRes();
+    public native void nativeUpdateMenuRes();
 
     //invocation from the AWTTrayIcon.m
     public long getPopupMenuModel() {
