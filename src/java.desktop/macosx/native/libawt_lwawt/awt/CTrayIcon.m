@@ -417,7 +417,9 @@ JNF_COCOA_ENTER(env);
 
     AWTTrayIcon *icon = jlong_to_ptr(model);
     NSLog(@"1");
-    // [icon updateMenuRes];
+    [ThreadUtilities performOnMainThreadWaiting:YES block:^(){
+        [icon updateMenuRes];
+    }];
     NSLog(@"2");
 JNF_COCOA_EXIT(env);
 }
