@@ -416,11 +416,9 @@ JNF_COCOA_ENTER(env);
     NSLog(@"Menu reference changed");
 
     AWTTrayIcon *icon = jlong_to_ptr(model);
-    NSLog(@"1");
     [ThreadUtilities performOnMainThreadWaiting:YES block:^(){
-        [icon setTooltip:@"test"];
+        [icon updateMenuRes];
     }];
-    NSLog(@"2");
 JNF_COCOA_EXIT(env);
 }
 
