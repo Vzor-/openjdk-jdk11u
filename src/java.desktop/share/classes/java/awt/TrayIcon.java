@@ -315,6 +315,9 @@ public class TrayIcon {
                 this.popup.isTrayIconPopup = false;
             }
             this.popup = popup;
+            if (this.peer instanceof CTrayIcon) {
+                ((CTrayIcon) this.peer).updatePopupMenu();
+            }
         }
     }
 
