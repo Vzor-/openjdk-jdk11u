@@ -411,7 +411,7 @@ JNIEXPORT void JNICALL Java_java_awt_TrayIcon_initIDs
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_sun_lwawt_macosx_CTrayIcon_nativeUpdateMenuRes
-(JNIEnv *env, jlong model) {
+(JNIEnv *env, jobject self, jlong model) {
 JNF_COCOA_ENTER(env);
     NSLog(@"Menu reference changed");
 
