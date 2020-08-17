@@ -81,7 +81,7 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
         checkAndCreatePopupPeer();
         updateImage();
         //todo delete me
-        nativeUpdateMenuRes();
+        // nativeUpdateMenuRes();
     }
 
     private CPopupMenu checkAndCreatePopupPeer() {
@@ -107,7 +107,7 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
 
     private native long nativeCreate();
 
-    public native void nativeUpdateMenuRes();
+    public native void nativeUpdateMenuRes(long trayIconModel);
 
     //invocation from the AWTTrayIcon.m
     public long getPopupMenuModel() {
@@ -198,8 +198,8 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
     }
 
     @Override
-    public void updatePopupMenu(long trayIconMode) {
-        nativeUpdateMenuRes();
+    public void updatePopupMenu() {
+        execute(ptr -> nativeUpdateMenuRes(ptr));
     }
 
     void updateNativeImage(Image image) {
