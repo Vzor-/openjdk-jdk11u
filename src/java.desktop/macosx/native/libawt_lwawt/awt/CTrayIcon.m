@@ -103,7 +103,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void) updateMenuRes {
-    // [view updateMenuRes];
+    [view updateMenuRes];
 }
 
 -(NSStatusItem *) theItem{
