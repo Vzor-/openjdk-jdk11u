@@ -102,6 +102,10 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     // [view setToolTip:tooltip];
 }
 
+- (void)updateMenuRes {
+    [view updateMenuRes];
+}
+
 -(NSStatusItem *) theItem{
     return theItem;
 }
@@ -235,8 +239,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     trayIcon = theTrayIcon;
 }
 
-- (void)menuWillOpen:(NSMenu *)menu
-{
+- (void)updateMenuRes {
     JNIEnv *env = [ThreadUtilities getJNIEnv];
     static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
     static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
@@ -252,9 +255,6 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
         [newMenu setDelegate:self]; 
     }
     [trayIcon setMenu: newMenu];
-    // [self setHighlighted:YES];
-    // [trayIcon setTooltip:@"worked"];
-    NSLog(@"Will open");
 }
 
 - (void)menuDidClose:(NSMenu *)menu
@@ -408,11 +408,14 @@ JNIEXPORT void JNICALL Java_java_awt_TrayIcon_initIDs
 /*
  * Class: sun_lwawt_macosx_CTrayIcon
  * Method: nativeUpdateMenuRes
- * Signature: ()V
+ * Signature: (J)V
  */
 JNIEXPORT void JNICALL Java_sun_lwawt_macosx_CTrayIcon_nativeUpdateMenuRes
-(JNIEnv *env, jclass cls) {
-    NSLog(@"Made it!");
+(JNIEnv *env, jlong model) {
+    NSLog(@"Menu reference changed");
+
+    AWTTrayIcon *icon = jlong_to_ptr(model);
+    [icon updateMenuRes];
 }
 
 /*

@@ -198,7 +198,7 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
     }
 
     @Override
-    public void updatePopupMenu() {
+    public void updatePopupMenu(long trayIconMode) {
         nativeUpdateMenuRes();
     }
 
