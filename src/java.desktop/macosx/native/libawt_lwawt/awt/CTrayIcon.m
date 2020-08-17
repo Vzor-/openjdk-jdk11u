@@ -412,12 +412,14 @@ JNIEXPORT void JNICALL Java_java_awt_TrayIcon_initIDs
  */
 JNIEXPORT void JNICALL Java_sun_lwawt_macosx_CTrayIcon_nativeUpdateMenuRes
 (JNIEnv *env, jlong model) {
+JNF_COCOA_ENTER(env);
     NSLog(@"Menu reference changed");
 
     AWTTrayIcon *icon = jlong_to_ptr(model);
     NSLog(@"1");
     [icon updateMenuRes];
     NSLog(@"2");
+JNF_COCOA_EXIT(env);
 }
 
 /*
