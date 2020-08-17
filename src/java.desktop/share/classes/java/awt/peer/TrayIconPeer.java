@@ -59,6 +59,8 @@ public interface TrayIconPeer {
      */
     void updateImage();
 
+    void updatePopupMenu();
+
     /**
      * Displays a message at the tray icon.
      *

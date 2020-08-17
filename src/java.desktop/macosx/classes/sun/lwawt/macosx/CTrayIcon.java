@@ -197,6 +197,11 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
         }
     }
 
+    @Override
+    public void updatePopupMenu() {
+        nativeUpdateMenuRes();
+    }
+
     void updateNativeImage(Image image) {
         MediaTracker tracker = new MediaTracker(new Button(""));
         tracker.addImage(image, 0);
