@@ -56,7 +56,7 @@ extern "C" {
 - (NSPoint) getLocationOnScreen;
 - (void) deliverJavaMouseEvent:(NSEvent*) event;
 - (void) setMenu:(NSMenu *)menu;
-- (void)updateMenuRes;
+- (void) updateMenuRes;
 
 @end //AWTTrayIcon
 

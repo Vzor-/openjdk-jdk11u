@@ -102,7 +102,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     // [view setToolTip:tooltip];
 }
 
-- (void)updateMenuRes {
+- (void) updateMenuRes {
     [view updateMenuRes];
 }
 
@@ -415,7 +415,9 @@ JNIEXPORT void JNICALL Java_sun_lwawt_macosx_CTrayIcon_nativeUpdateMenuRes
     NSLog(@"Menu reference changed");
 
     AWTTrayIcon *icon = jlong_to_ptr(model);
+    NSLog(@"1");
     [icon updateMenuRes];
+    NSLog(@"2");
 }
 
 /*
