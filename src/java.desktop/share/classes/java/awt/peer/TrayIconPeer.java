@@ -59,6 +59,9 @@ public interface TrayIconPeer {
      */
     void updateImage();
 
+    /**
+     * Todo:
+     */
     void updatePopupMenu();
 
     /**
