@@ -437,10 +437,7 @@ JNIEXPORT void JNICALL Java_sun_lwawt_macosx_CTrayIcon_nativeSetTemplate
 JNF_COCOA_ENTER(env);
 
     AWTTrayIcon *icon = jlong_to_ptr(model);
-    [ThreadUtilities performOnMainThreadWaiting:NO block:^(){
         [icon setTemplate:template];
-    }];
-
 JNF_COCOA_EXIT(env);
 }
 
