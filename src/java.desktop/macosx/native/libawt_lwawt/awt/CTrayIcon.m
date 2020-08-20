@@ -126,8 +126,12 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     [theItem setLength:itemLength];
     // [view setImage:imagePtr];
     theItem.button.image = imagePtr;
-    theItem.button.image.template = true;
+    // todo: theItem.button.image.template = whatever;
 
+}
+
+- (void) setTemplate:(BOOL)template {
+    theItem.button.image.template = template;
 }
 
 - (NSPoint) getLocationOnScreen {
@@ -419,6 +423,7 @@ JNF_COCOA_ENTER(env);
     [ThreadUtilities performOnMainThreadWaiting:YES block:^(){
         [icon updateMenuRes];
     }];
+
 JNF_COCOA_EXIT(env);
 }
 
@@ -430,8 +435,12 @@ JNF_COCOA_EXIT(env);
 JNIEXPORT void JNICALL Java_sun_lwawt_macosx_CTrayIcon_nativeSetTemplate
 (JNIEnv *env, jobject self, jlong model, BOOL template) {
 JNF_COCOA_ENTER(env);
-    NSLog(@"Entered nativeSetTemplate");
-    NSLog(template ? @"True" : @"False");
+
+    AWTTrayIcon *icon = jlong_to_ptr(model);
+    [ThreadUtilities performOnMainThreadWaiting:YES block:^(){
+        [icon setTemplate:template];
+    }];
+
 JNF_COCOA_EXIT(env);
 }
 
