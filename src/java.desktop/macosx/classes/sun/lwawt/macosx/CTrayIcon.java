@@ -202,7 +202,7 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
     }
 
     @Override
-    void setTemplate(boolean template) {
+    public void setTemplate(boolean template) {
         execute(ptr -> nativeSetTemplate(ptr, template));        
     }
 
