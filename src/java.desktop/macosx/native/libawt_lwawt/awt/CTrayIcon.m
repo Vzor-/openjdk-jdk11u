@@ -423,6 +423,19 @@ JNF_COCOA_EXIT(env);
 }
 
 /*
+ * Class: sun_lwawt_macosx_CTrayIcon
+ * Method: nativeSetTemplate
+ * Signature: (JZ)V
+ */
+JNIEXPORT void JNICALL Java_sun_lwawt_macosx_CTrayIcon_nativeSetTemplate
+(JNIEnv *env, jobject self, jlong model, BOOL template) {
+JNF_COCOA_ENTER(env);
+    NSLog(@"Entered nativeSetTemplate");
+    NSLog(template ? @"True" : @"False");
+JNF_COCOA_EXIT(env);
+}
+
+/*
  * Class:     sun_lwawt_macosx_CTrayIcon
  * Method:    nativeSetToolTip
  * Signature: (JLjava/lang/String;)V

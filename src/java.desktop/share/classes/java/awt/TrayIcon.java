@@ -90,6 +90,7 @@ public class TrayIcon {
     private String tooltip;
     private PopupMenu popup;
     private boolean autosize;
+    private boolean template;
     private int id;
     private String actionCommand;
 
@@ -398,6 +399,21 @@ public class TrayIcon {
      */
     public boolean isImageAutoSize() {
         return autosize;
+    }
+
+    /**
+     * todo:
+     */
+    public boolean isTemplate() {
+        return template;
+    }
+
+    /**
+     * todo:
+     */
+    public void setTemplate(boolean template) {
+        this.template = template;
+        peer.setTemplate(template);
     }
 
     /**

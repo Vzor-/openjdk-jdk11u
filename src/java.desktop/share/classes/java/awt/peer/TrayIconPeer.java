@@ -65,6 +65,11 @@ public interface TrayIconPeer {
     void updatePopupMenu();
 
     /**
+     * Todo:
+     */
+    void setTemplate(boolean template);
+
+    /**
      * Displays a message at the tray icon.
      *
      * @param caption the message caption
