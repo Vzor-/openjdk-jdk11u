@@ -403,6 +403,7 @@ public class TrayIcon {
 
     /**
      * todo:
+     * @return todo: 
      */
     public boolean isTemplate() {
         return template;
@@ -410,6 +411,7 @@ public class TrayIcon {
 
     /**
      * todo:
+     * @param template todo:
      */
     public void setTemplate(boolean template) {
         this.template = template;

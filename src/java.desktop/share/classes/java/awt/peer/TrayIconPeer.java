@@ -66,6 +66,7 @@ public interface TrayIconPeer {
 
     /**
      * Todo:
+     * @return todo:
      */
     void setTemplate(boolean template);
 
