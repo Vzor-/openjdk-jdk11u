@@ -132,8 +132,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
 - (void) setTemplate:(BOOL)template {
     [[[theItem button] image] setTemplate: template];
-    [theItem setVisible: false];
-    [theItem setVisible: true];
+    [[theItem button] setNeedsDisplay: true];
 }
 
 - (NSPoint) getLocationOnScreen {
