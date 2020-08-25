@@ -64,7 +64,7 @@ extern "C" {
 //==================================================================================
 /*
  * AWTTrayIconView */
-@interface AWTTrayIconView : NSMenuDelegate {
+@interface AWTTrayIconView : NSObject<NSMenuDelegate> {
 @public
     AWTTrayIcon *trayIcon;
     NSImage* image;

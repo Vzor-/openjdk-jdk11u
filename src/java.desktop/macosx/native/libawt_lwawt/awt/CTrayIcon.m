@@ -135,9 +135,9 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     [[theItem button] setNeedsDisplay: true];
 }
 
-- (NSPoint) getLocationOnScreen {
-    return [[view window] convertBaseToScreen: NSZeroPoint];
-}
+// - (NSPoint) getLocationOnScreen {
+//     return [[view window] convertBaseToScreen: NSZeroPoint];
+// }
 
 -(void) deliverJavaMouseEvent: (NSEvent *) event {
     [AWTToolkit eventCountPlusPlus];
@@ -200,21 +200,21 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     image = nil;
     trackingArea = nil;
 
-    [self addTrackingArea];
+    // [self addTrackingArea];
 
     return self;
 }
 
-- (void)addTrackingArea {
-    NSTrackingAreaOptions options = NSTrackingMouseMoved |
-                                    NSTrackingInVisibleRect |
-                                    NSTrackingActiveAlways;
-    trackingArea = [[NSTrackingArea alloc] initWithRect: CGRectZero
-                                                options: options
-                                                owner: self
-                                                userInfo: nil];
-    [self addTrackingArea:trackingArea];
-}
+// - (void)addTrackingArea {
+//     NSTrackingAreaOptions options = NSTrackingMouseMoved |
+//                                     NSTrackingInVisibleRect |
+//                                     NSTrackingActiveAlways;
+//     trackingArea = [[NSTrackingArea alloc] initWithRect: CGRectZero
+//                                                 options: options
+//                                                 owner: self
+//                                                 userInfo: nil];
+//     [self addTrackingArea:trackingArea];
+// }
 
 -(void) dealloc {
     [image release];
