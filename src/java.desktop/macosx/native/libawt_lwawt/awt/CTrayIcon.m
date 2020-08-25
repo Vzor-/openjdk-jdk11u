@@ -193,7 +193,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 @implementation AWTTrayIconView
 
 -(id)initWithTrayIcon:(AWTTrayIcon *)theTrayIcon {
-    self = [super initWithFrame:NSMakeRect(0, 0, 1, 1)];
+    self = [super init];
 
     [self setTrayIcon: theTrayIcon];
     isHighlighted = NO;
@@ -269,32 +269,32 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     // [self setHighlighted:NO];
 }
 
-- (void)drawRect:(NSRect)dirtyRect
-{
-    if (image == nil) {
-        return;
-    }
+// - (void)drawRect:(NSRect)dirtyRect
+// {
+//     if (image == nil) {
+//         return;
+//     }
 
-    NSRect bounds = [self bounds];
-    NSSize imageSize = [image size];
+//     NSRect bounds = [self bounds];
+//     NSSize imageSize = [image size];
 
-    NSRect drawRect = {{ (bounds.size.width - imageSize.width) / 2.0,
-        (bounds.size.height - imageSize.height) / 2.0 }, imageSize};
+//     NSRect drawRect = {{ (bounds.size.width - imageSize.width) / 2.0,
+//         (bounds.size.height - imageSize.height) / 2.0 }, imageSize};
 
-    // don't cover bottom pixels of the status bar with the image
-    if (drawRect.origin.y < 1.0) {
-        drawRect.origin.y = 1.0;
-    }
-    drawRect = NSIntegralRect(drawRect);
+//     // don't cover bottom pixels of the status bar with the image
+//     if (drawRect.origin.y < 1.0) {
+//         drawRect.origin.y = 1.0;
+//     }
+//     drawRect = NSIntegralRect(drawRect);
 
-    [trayIcon.theItem drawStatusBarBackgroundInRect:bounds
-                                withHighlight:isHighlighted];
-    [image drawInRect:drawRect
-             fromRect:NSZeroRect
-            operation:NSCompositeSourceOver
-             fraction:1.0
-     ];
-}
+//     [trayIcon.theItem drawStatusBarBackgroundInRect:bounds
+//                                 withHighlight:isHighlighted];
+//     [image drawInRect:drawRect
+//              fromRect:NSZeroRect
+//             operation:NSCompositeSourceOver
+//              fraction:1.0
+//      ];
+// }
 
 - (void)mouseDown:(NSEvent *)event {
     NSLog(@"mouseDown");
