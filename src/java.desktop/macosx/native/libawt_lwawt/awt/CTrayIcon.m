@@ -196,41 +196,18 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     self = [super init];
 
     [self setTrayIcon: theTrayIcon];
-    isHighlighted = NO;
     image = nil;
     trackingArea = nil;
 
-    // [self addTrackingArea];
-
     return self;
 }
-
-// - (void)addTrackingArea {
-//     NSTrackingAreaOptions options = NSTrackingMouseMoved |
-//                                     NSTrackingInVisibleRect |
-//                                     NSTrackingActiveAlways;
-//     trackingArea = [[NSTrackingArea alloc] initWithRect: CGRectZero
-//                                                 options: options
-//                                                 owner: self
-//                                                 userInfo: nil];
-//     [self addTrackingArea:trackingArea];
-// }
-
 -(void) dealloc {
     [image release];
     [trackingArea release];
     [super dealloc];
 }
 
-- (void)setHighlighted:(BOOL)aFlag
-{
-    if (isHighlighted != aFlag) {
-        isHighlighted = aFlag;
-        [self setNeedsDisplay:YES];
-    }
-}
-
-- (void)setImage:(NSImage*)anImage {
+-(void)setImage:(NSImage*)anImage {
     [anImage retain];
     [image release];
     image = anImage;
@@ -262,62 +239,6 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     [trayIcon setMenu: newMenu];
 }
 
-- (void)menuDidClose:(NSMenu *)menu
-{
-    // [trayIcon setTooltip:@"worked"];
-    // [menu setDelegate:nil];
-    // [self setHighlighted:NO];
-}
-
-// - (void)drawRect:(NSRect)dirtyRect
-// {
-//     if (image == nil) {
-//         return;
-//     }
-
-//     NSRect bounds = [self bounds];
-//     NSSize imageSize = [image size];
-
-//     NSRect drawRect = {{ (bounds.size.width - imageSize.width) / 2.0,
-//         (bounds.size.height - imageSize.height) / 2.0 }, imageSize};
-
-//     // don't cover bottom pixels of the status bar with the image
-//     if (drawRect.origin.y < 1.0) {
-//         drawRect.origin.y = 1.0;
-//     }
-//     drawRect = NSIntegralRect(drawRect);
-
-//     [trayIcon.theItem drawStatusBarBackgroundInRect:bounds
-//                                 withHighlight:isHighlighted];
-//     [image drawInRect:drawRect
-//              fromRect:NSZeroRect
-//             operation:NSCompositeSourceOver
-//              fraction:1.0
-//      ];
-// }
-
-- (void)mouseDown:(NSEvent *)event {
-    NSLog(@"mouseDown");
-    // [trayIcon deliverJavaMouseEvent: event];
-
-    // // don't show the menu on ctrl+click: it triggers ACTION event, like right click
-    // if (([event modifierFlags] & NSControlKeyMask) == 0) {
-    //     //find CTrayIcon.getPopupMenuModel method and call it to get popup menu ptr.
-    //     JNIEnv *env = [ThreadUtilities getJNIEnv];
-    //     static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
-    //     static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
-    //     jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
-
-    //     if (res != 0) {
-    //         CPopupMenu *cmenu = jlong_to_ptr(res);
-    //         NSMenu* menu = [cmenu menu];
-    //         [menu setDelegate:self];
-    //         [trayIcon.theItem popUpStatusItemMenu:menu];
-    //         [self setNeedsDisplay:YES];
-    //     }
-    // }
-}
-
 - (NSMenu *) getMenu {
     JNIEnv *env = [ThreadUtilities getJNIEnv];
     static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
@@ -337,47 +258,6 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     }
     return NULL;
 }
-
-- (void) mouseUp:(NSEvent *)event {
-        NSLog(@"up");
-    [trayIcon deliverJavaMouseEvent: event];
-}
-
-- (void) mouseDragged:(NSEvent *)event {
-        NSLog(@"drag");
-    [trayIcon deliverJavaMouseEvent: event];
-}
-
-- (void) mouseMoved: (NSEvent *)event {
-        NSLog(@"moved");
-    [trayIcon deliverJavaMouseEvent: event];
-}
-
-- (void) rightMouseDown:(NSEvent *)event {
-        NSLog(@"down");
-    [trayIcon deliverJavaMouseEvent: event];
-}
-
-- (void) rightMouseUp:(NSEvent *)event {
-    [trayIcon deliverJavaMouseEvent: event];
-}
-
-- (void) rightMouseDragged:(NSEvent *)event {
-    [trayIcon deliverJavaMouseEvent: event];
-}
-
-- (void) otherMouseDown:(NSEvent *)event {
-    [trayIcon deliverJavaMouseEvent: event];
-}
-
-- (void) otherMouseUp:(NSEvent *)event {
-    [trayIcon deliverJavaMouseEvent: event];
-}
-
-- (void) otherMouseDragged:(NSEvent *)event {
-    [trayIcon deliverJavaMouseEvent: event];
-}
-
 
 @end //AWTTrayIconView
 //================================================
