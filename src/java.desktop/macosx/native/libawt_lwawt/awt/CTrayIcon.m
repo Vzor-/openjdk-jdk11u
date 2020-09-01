@@ -130,7 +130,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 - (void) setTemplate:(BOOL)template {
     NSLog(@"Setting template to %d", template);
     [[[theItem button] image] setTemplate: template];
-    [[theItem button] setNeedsDisplay: true];
+    // [[theItem button] setNeedsDisplay: true];
 }
 
 -(void) deliverJavaMouseEvent: (NSEvent *) event {
