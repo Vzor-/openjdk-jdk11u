@@ -415,7 +415,11 @@ public class TrayIcon {
      */
     public void setTemplate(boolean template) {
         this.template = template;
-        peer.setTemplate(template);
+
+        TrayIconPeer peer = this.peer;
+        if (peer != null) {
+            peer.setTemplate(template);
+        }
     }
 
     /**
@@ -715,6 +719,7 @@ public class TrayIcon {
             }
         }
         peer.setToolTip(tooltip);
+        peer.setTemplate(template);
     }
 
     void removeNotify() {
