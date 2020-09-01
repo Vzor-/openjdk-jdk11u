@@ -261,6 +261,7 @@ public class TrayIcon {
         TrayIconPeer peer = this.peer;
         if (peer != null) {
             peer.updateImage();
+            peer.setTemplate(template);
         }
     }
 
