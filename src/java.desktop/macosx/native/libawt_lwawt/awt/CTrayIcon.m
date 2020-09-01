@@ -130,7 +130,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 - (void) setTemplate:(BOOL)template {
     NSLog(@"Setting template to %d", template);
     [[[theItem button] image] setTemplate: template];
-    // [[theItem button] setNeedsDisplay: true];
+    [[theItem button] setNeedsDisplay: true];
 }
 
 -(void) deliverJavaMouseEvent: (NSEvent *) event {
@@ -316,7 +316,7 @@ JNIEXPORT void JNICALL Java_sun_lwawt_macosx_CTrayIcon_nativeSetTemplate
 JNF_COCOA_ENTER(env);
 
     AWTTrayIcon *icon = jlong_to_ptr(model);
-    [ThreadUtilities performOnMainThreadWaiting:YES block:^(){
+    [ThreadUtilities performOnMainThreadWaiting:NO block:^(){
         [icon setTemplate:template];
     }];
 
