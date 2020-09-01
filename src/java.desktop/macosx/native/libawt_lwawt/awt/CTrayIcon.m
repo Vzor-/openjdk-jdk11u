@@ -68,7 +68,6 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     [theItem retain];
 
     view = [[AWTTrayIconView alloc] initWithTrayIcon:self];
-    // [theItem setView:view];
 
     [theItem setMenu: [view getMenu]];
     return self;
@@ -99,7 +98,6 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
 - (void) setTooltip:(NSString *) tooltip{
     [[theItem button] setToolTip:tooltip];
-    // [view setToolTip:tooltip];
 }
 
 - (void) updateMenuRes {
@@ -124,20 +122,16 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     CGFloat itemLength = scaledSize.width + 2.0*kImageInset;
     [theItem setLength:itemLength];
-    // [view setImage:imagePtr];
     theItem.button.image = imagePtr;
     // todo: theItem.button.image.template = whatever;
 
 }
 
 - (void) setTemplate:(BOOL)template {
+    NSLog(@"Setting template to %d", template);
     [[[theItem button] image] setTemplate: template];
     [[theItem button] setNeedsDisplay: true];
 }
-
-// - (NSPoint) getLocationOnScreen {
-//     return [[view window] convertBaseToScreen: NSZeroPoint];
-// }
 
 -(void) deliverJavaMouseEvent: (NSEvent *) event {
     [AWTToolkit eventCountPlusPlus];
