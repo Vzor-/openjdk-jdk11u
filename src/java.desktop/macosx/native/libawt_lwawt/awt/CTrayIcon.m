@@ -69,7 +69,8 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     view = [[AWTTrayIconView alloc] initWithTrayIcon:self];
 
-    [theItem setMenu: [view getMenu]];
+    //[theItem setMenu: [view getMenu]];
+    theItem.button.action = @selector(stuffHappened:);
     return self;
 }
 
@@ -179,6 +180,11 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     static JNF_MEMBER_CACHE(jm_handleMouseEvent, jc_TrayIcon, "handleMouseEvent", "(Lsun/lwawt/macosx/NSEvent;)V");
     JNFCallVoidMethod(env, peer, jm_handleMouseEvent, jEvent);
     (*env)->DeleteLocalRef(env, jEvent);
+}
+
+
+- (void) stuffHappened:(id)sender {
+    NSLog(@"StatusItem hit.");
 }
 
 @end //AWTTrayIcon

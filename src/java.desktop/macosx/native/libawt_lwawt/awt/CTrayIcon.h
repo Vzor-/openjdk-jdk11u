@@ -58,6 +58,7 @@ extern "C" {
 - (void) deliverJavaMouseEvent:(NSEvent*) event;
 - (void) setMenu:(NSMenu *)menu;
 - (void) updateMenuRes;
+- (void) stuffHappened:(id)sender;
 
 @end //AWTTrayIcon
 
