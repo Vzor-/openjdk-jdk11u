@@ -71,6 +71,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     //[theItem setMenu: [view getMenu]];
     theItem.button.action = @selector(stuffHappened:);
+    theItem.button.target = self;
     return self;
 }
 
