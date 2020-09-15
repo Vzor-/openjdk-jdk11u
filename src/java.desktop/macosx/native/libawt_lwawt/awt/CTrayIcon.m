@@ -186,6 +186,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
 - (void) stuffHappened:(id)sender {
     NSLog(@"StatusItem hit.");
+    [theItem popUpStatusItemMenu : [view getMenu]];
 }
 
 @end //AWTTrayIcon
