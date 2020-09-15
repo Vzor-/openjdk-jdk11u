@@ -222,21 +222,21 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void)updateMenuRes {
-    JNIEnv *env = [ThreadUtilities getJNIEnv];
-    static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
-    static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
-    jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
-    NSMenu* newMenu;
-    if (res != 0) {
-        CPopupMenu *cmenu = jlong_to_ptr(res);
-        newMenu = [cmenu menu];
-        [newMenu setDelegate:self];
-    } else {
-        NSLog(@"null java ref");
-        newMenu = [[NSMenu alloc] initWithTitle:@""];
-        [newMenu setDelegate:self]; 
-    }
-    [trayIcon setMenu: newMenu];
+    // JNIEnv *env = [ThreadUtilities getJNIEnv];
+    // static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
+    // static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
+    // jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
+    // NSMenu* newMenu;
+    // if (res != 0) {
+    //     CPopupMenu *cmenu = jlong_to_ptr(res);
+    //     newMenu = [cmenu menu];
+    //     [newMenu setDelegate:self];
+    // } else {
+    //     NSLog(@"null java ref");
+    //     newMenu = [[NSMenu alloc] initWithTitle:@""];
+    //     [newMenu setDelegate:self]; 
+    // }
+    // [trayIcon setMenu: newMenu];
 }
 
 - (NSMenu *) getMenu {
