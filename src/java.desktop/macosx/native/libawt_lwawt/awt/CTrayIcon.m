@@ -73,22 +73,21 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     //[theItem setMenu: [menuDelegate getMenu]];
     theItem.button.action = @selector(mouseDown:);
     theItem.button.target = self;
-    [self addTrackingArea];
+
+    trackingArea = [[NSTrackingArea alloc] initWithRect: CGRectZero
+                                            options: NSTrackingMouseMoved |
+                                                NSTrackingInVisibleRect |
+                                                NSTrackingActiveAlways
+                                            owner: self
+                                            userInfo: nil];
+    [[theItem button] addTrackingArea:trackingArea];
+
+
     return self;
 }
 
 -(void) setMenu:(NSMenu *) menu{
     [theItem setMenu: menu];
-}
-
-- (void)addTrackingArea {
-    trackingArea = [[NSTrackingArea alloc] initWithRect: CGRectZero
-                                                options: NSTrackingMouseMoved |
-                                                    NSTrackingInVisibleRect |
-                                                    NSTrackingActiveAlways
-                                                owner: self
-                                                userInfo: nil];
-    [[theItem button] addTrackingArea:trackingArea];
 }
 
 -(void) dealloc {
