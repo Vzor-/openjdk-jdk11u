@@ -82,7 +82,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void)addTrackingArea {
-    trackingArea = [[NSTrackingArea alloc] initWithRect: [[theItem button] bounds]
+    trackingArea = [[NSTrackingArea alloc] initWithRect: CGRectZero
                                                 options: NSTrackingMouseMoved |
                                                     NSTrackingInVisibleRect |
                                                     NSTrackingActiveAlways
