@@ -70,7 +70,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     menuDelegate = [[AWTTrayIconDelegate alloc] initWithTrayIcon:self];
     trackingArea = nil;
 
-    [self addTrackingArea];
+    // [self addTrackingArea];
 
 
     //[theItem setMenu: [menuDelegate getMenu]];
