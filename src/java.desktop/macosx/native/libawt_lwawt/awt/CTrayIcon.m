@@ -214,7 +214,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
         [menu setDelegate:menuDelegate];
         [theItem popUpStatusItemMenu: menu];
         // todo what needsdisplay
-        // [menu setNeedsDisplay:YES];
+        [menuDelegate setNeedsDisplay:YES];
     }
 }
 
