@@ -89,7 +89,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
                                                 options: options
                                                 owner: self
                                                 userInfo: nil];
-    // [[theItem button] addTrackingArea:trackingArea];
+    [[theItem button] addTrackingArea:trackingArea];
 }
 
 -(void) dealloc {
@@ -220,12 +220,12 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     [self deliverJavaMouseEvent: event];
 }
 
-- (void) mouseDragged:(id)event {
+- (void) mouseDragged:(NSEvent *)event {
     // [self deliverJavaMouseEvent: event];
 }
 
 - (void) mouseMoved: (NSEvent *)event {
-    [self deliverJavaMouseEvent: event];
+    // [self deliverJavaMouseEvent: event];
 }
 
 - (void) rightMouseDown:(NSEvent *)event {
