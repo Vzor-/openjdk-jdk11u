@@ -100,9 +100,9 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     [[NSStatusBar systemStatusBar] removeStatusItem: theItem];
 
-    // Its a bad idea to force the item to release our menuDelegate by setting
-    // the item's menuDelegate to nil: it can lead to a crash in some scenarios.
-    // The item will release the menuDelegate later on, so just set the menuDelegate's image
+    // Its a bad idea to force the item to release our view by setting
+    // the item's view to nil: it can lead to a crash in some scenarios.
+    // The item will release the view later on, so just set the view's image
     // and tray icon to nil since we are done with it.
     // [menuDelegate setImage: nil];
     // [menuDelegate setTrayIcon: nil];
@@ -158,10 +158,10 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     NSPoint eventLocation = [event locationInWindow];
 
-    NSPoint localPoint = [[theItem button] convertPoint: eventLocation frommenuDelegate: nil];
+    NSPoint localPoint = [[theItem button] convertPoint: eventLocation fromView: nil];
     localPoint.y = [[theItem button] bounds].size.height - localPoint.y;
 
-    // NSPoint localPoint = [menuDelegate convertPoint: eventLocation frommenuDelegate: nil];
+    // NSPoint localPoint = [menuDelegate convertPoint: eventLocation fromView: nil];
     // localPoint.y = [menuDelegate bounds].size.height - localPoint.y;
 
     NSPoint absP = [NSEvent mouseLocation];
