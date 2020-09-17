@@ -206,7 +206,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     JNIEnv *env = [ThreadUtilities getJNIEnv];
     static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
     static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
-    jlong res = JNFCallLongMethod(env, menuDelegate.trayIcon.peer, jm_getPopupMenuModel);
+    jlong res = JNFCallLongMethod(env, menuDelegate->trayIcon->peer, jm_getPopupMenuModel);
 
     if (res != 0) {
         CPopupMenu *cmenu = jlong_to_ptr(res);
