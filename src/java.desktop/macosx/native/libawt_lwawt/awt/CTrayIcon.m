@@ -149,51 +149,51 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
 -(void) deliverJavaMouseEvent: (NSEvent *) event {
     //Todo: fix
-    // [AWTToolkit eventCountPlusPlus];
+    [AWTToolkit eventCountPlusPlus];
 
-    // JNIEnv *env = [ThreadUtilities getJNIEnv];
+    JNIEnv *env = [ThreadUtilities getJNIEnv];
 
-    // NSPoint eventLocation = [event locationInWindow];
+    NSPoint eventLocation = [event locationInWindow];
 
-    // NSPoint localPoint = [[theItem button] convertPoint: eventLocation fromView: nil];
-    // localPoint.y = [[theItem button] bounds].size.height - localPoint.y;
+    NSPoint localPoint = [[theItem button] convertPoint: eventLocation fromView: nil];
+    localPoint.y = [[theItem button] bounds].size.height - localPoint.y;
 
-    // // NSPoint localPoint = [menuDelegate convertPoint: eventLocation fromView: nil];
-    // // localPoint.y = [menuDelegate bounds].size.height - localPoint.y;
+    // NSPoint localPoint = [menuDelegate convertPoint: eventLocation fromView: nil];
+    // localPoint.y = [menuDelegate bounds].size.height - localPoint.y;
 
-    // NSPoint absP = [NSEvent mouseLocation];
-    // NSEventType type = [event type];
+    NSPoint absP = [NSEvent mouseLocation];
+    NSEventType type = [event type];
 
-    // absP = ConvertNSScreenPoint(NULL, absP);
-    // jint clickCount;
+    absP = ConvertNSScreenPoint(NULL, absP);
+    jint clickCount;
 
-    // clickCount = [event clickCount];
+    clickCount = [event clickCount];
 
-    // jdouble deltaX = [event deltaX];
-    // jdouble deltaY = [event deltaY];
-    // if ([AWTToolkit hasPreciseScrollingDeltas: event]) {
-    //     deltaX = [event scrollingDeltaX] * 0.1;
-    //     deltaY = [event scrollingDeltaY] * 0.1;
-    // }
+    jdouble deltaX = [event deltaX];
+    jdouble deltaY = [event deltaY];
+    if ([AWTToolkit hasPreciseScrollingDeltas: event]) {
+        deltaX = [event scrollingDeltaX] * 0.1;
+        deltaY = [event scrollingDeltaY] * 0.1;
+    }
 
-    // static JNF_CLASS_CACHE(jc_NSEvent, "sun/lwawt/macosx/NSEvent");
-    // static JNF_CTOR_CACHE(jctor_NSEvent, jc_NSEvent, "(IIIIIIIIDDI)V");
-    // jobject jEvent = JNFNewObject(env, jctor_NSEvent,
-    //                               [event type],
-    //                               [event modifierFlags],
-    //                               clickCount,
-    //                               [event buttonNumber],
-    //                               (jint)localPoint.x, (jint)localPoint.y,
-    //                               (jint)absP.x, (jint)absP.y,
-    //                               deltaY,
-    //                               deltaX,
-    //                               [AWTToolkit scrollStateWithEvent: event]);
-    // CHECK_NULL(jEvent);
+    static JNF_CLASS_CACHE(jc_NSEvent, "sun/lwawt/macosx/NSEvent");
+    static JNF_CTOR_CACHE(jctor_NSEvent, jc_NSEvent, "(IIIIIIIIDDI)V");
+    jobject jEvent = JNFNewObject(env, jctor_NSEvent,
+                                  [event type],
+                                  [event modifierFlags],
+                                  clickCount,
+                                  [event buttonNumber],
+                                  (jint)localPoint.x, (jint)localPoint.y,
+                                  (jint)absP.x, (jint)absP.y,
+                                  deltaY,
+                                  deltaX,
+                                  [AWTToolkit scrollStateWithEvent: event]);
+    CHECK_NULL(jEvent);
 
-    // static JNF_CLASS_CACHE(jc_TrayIcon, "sun/lwawt/macosx/CTrayIcon");
-    // static JNF_MEMBER_CACHE(jm_handleMouseEvent, jc_TrayIcon, "handleMouseEvent", "(Lsun/lwawt/macosx/NSEvent;)V");
-    // JNFCallVoidMethod(env, peer, jm_handleMouseEvent, jEvent);
-    // (*env)->DeleteLocalRef(env, jEvent);
+    static JNF_CLASS_CACHE(jc_TrayIcon, "sun/lwawt/macosx/CTrayIcon");
+    static JNF_MEMBER_CACHE(jm_handleMouseEvent, jc_TrayIcon, "handleMouseEvent", "(Lsun/lwawt/macosx/NSEvent;)V");
+    JNFCallVoidMethod(env, peer, jm_handleMouseEvent, jEvent);
+    (*env)->DeleteLocalRef(env, jEvent);
 }
 
 
