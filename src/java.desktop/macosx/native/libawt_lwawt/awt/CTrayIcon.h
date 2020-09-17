@@ -44,7 +44,7 @@ extern "C" {
  */
 @interface AWTTrayIcon : NSObject {
     jobject peer;
-    AWTTrayIconDelegate *view;
+    AWTTrayIconDelegate *menuDelegate;
     NSStatusItem *theItem;
     NSTrackingArea *trackingArea;
 }
