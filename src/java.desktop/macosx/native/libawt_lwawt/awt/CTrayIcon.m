@@ -201,7 +201,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
 
 - (void) mouseDown:(NSEvent *)event {    
-    [self deliverJavaMouseEvent: event];
+    //todo [self deliverJavaMouseEvent: event];
     //find CTrayIcon.getPopupMenuModel method and call it to get popup menu ptr.
     JNIEnv *env = [ThreadUtilities getJNIEnv];
     static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
