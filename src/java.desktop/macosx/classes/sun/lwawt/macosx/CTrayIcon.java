@@ -200,7 +200,7 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
 
     void updateNativeImage(Image image) {
         // AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
-            boolean isTemplateEnabled = Boolean.parseBoolean(System.getProperty("sun.awt.enableMacOSTemplateImages", "false"));
+            boolean isTemplateEnabled = Boolean.parseBoolean(System.getProperty("sun.awt.enableTemplateImages", "false"));
             //set system property if not yet assigned
             // System.setProperty(isTemplate, ""+isTemplateEnabled);
             // Todo: is this line needed? is any of this needed
