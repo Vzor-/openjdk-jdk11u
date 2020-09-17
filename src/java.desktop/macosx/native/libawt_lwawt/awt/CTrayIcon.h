@@ -37,14 +37,14 @@
 extern "C" {
 #endif
 
-@class AWTTrayIconView;
+@class AWTTrayIconDelegate;
 
 /*
  * AWTTrayIcon
  */
 @interface AWTTrayIcon : NSObject {
     jobject peer;
-    AWTTrayIconView *view;
+    AWTTrayIconDelegate *view;
     NSStatusItem *theItem;
     NSTrackingArea *trackingArea;
 }
@@ -64,8 +64,8 @@ extern "C" {
 
 //==================================================================================
 /*
- * AWTTrayIconView */
-@interface AWTTrayIconView : NSObject<NSMenuDelegate> {
+ * AWTTrayIconDelegate */
+@interface AWTTrayIconDelegate : NSObject<NSMenuDelegate> {
 @public
     AWTTrayIcon *trayIcon;
     NSImage* image;
@@ -79,7 +79,7 @@ extern "C" {
 -(void)updateMenuRes;
 -(NSMenu *)getMenu;
 
-@end //AWTTrayIconView
+@end //AWTTrayIconDelegate
 
 #ifdef __cplusplus
 }

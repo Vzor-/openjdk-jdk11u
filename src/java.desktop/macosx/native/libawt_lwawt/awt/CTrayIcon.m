@@ -67,13 +67,13 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     theItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [theItem retain];
 
-    view = [[AWTTrayIconView alloc] initWithTrayIcon:self];
+    menuDelegate = [[AWTTrayIconmenuDelegate alloc] initWithTrayIcon:self];
     trackingArea = nil;
 
     [self addTrackingArea];
 
 
-    //[theItem setMenu: [view getMenu]];
+    //[theItem setMenu: [menuDelegate getMenu]];
     theItem.button.action = @selector(mouseDown:);
     theItem.button.target = self;
     return self;
@@ -100,13 +100,13 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     [[NSStatusBar systemStatusBar] removeStatusItem: theItem];
 
-    // Its a bad idea to force the item to release our view by setting
-    // the item's view to nil: it can lead to a crash in some scenarios.
-    // The item will release the view later on, so just set the view's image
+    // Its a bad idea to force the item to release our menuDelegate by setting
+    // the item's menuDelegate to nil: it can lead to a crash in some scenarios.
+    // The item will release the menuDelegate later on, so just set the menuDelegate's image
     // and tray icon to nil since we are done with it.
-    // [view setImage: nil];
-    // [view setTrayIcon: nil];
-    // [view release];
+    // [menuDelegate setImage: nil];
+    // [menuDelegate setTrayIcon: nil];
+    // [menuDelegate release];
 
     [trackingArea release];
     [theItem release];
@@ -119,7 +119,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void) updateMenuRes {
-    [view updateMenuRes];
+    [menuDelegate updateMenuRes];
 }
 
 -(NSStatusItem *) theItem{
@@ -158,11 +158,11 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     NSPoint eventLocation = [event locationInWindow];
 
-    NSPoint localPoint = [[theItem button] convertPoint: eventLocation fromView: nil];
+    NSPoint localPoint = [[theItem button] convertPoint: eventLocation frommenuDelegate: nil];
     localPoint.y = [[theItem button] bounds].size.height - localPoint.y;
 
-    // NSPoint localPoint = [view convertPoint: eventLocation fromView: nil];
-    // localPoint.y = [view bounds].size.height - localPoint.y;
+    // NSPoint localPoint = [menuDelegate convertPoint: eventLocation frommenuDelegate: nil];
+    // localPoint.y = [menuDelegate bounds].size.height - localPoint.y;
 
     NSPoint absP = [NSEvent mouseLocation];
     NSEventType type = [event type];
@@ -206,14 +206,14 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     JNIEnv *env = [ThreadUtilities getJNIEnv];
     static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
     static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
-    jlong res = JNFCallLongMethod(env, view.trayIcon.peer, jm_getPopupMenuModel);
+    jlong res = JNFCallLongMethod(env, menuDelegate.trayIcon.peer, jm_getPopupMenuModel);
 
     if (res != 0) {
         CPopupMenu *cmenu = jlong_to_ptr(res);
         NSMenu* menu = [cmenu menu];
-        [menu setDelegate:view];
-        [theItem popUpStatusItemMenu: [view menu]];
-        [view setNeedsDisplay:YES];
+        [menu setDelegate:menuDelegate];
+        [theItem popUpStatusItemMenu: [menuDelegate menu]];
+        [menuDelegate setNeedsDisplay:YES];
     }
 }
 
@@ -256,7 +256,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 @end //AWTTrayIcon
 //================================================
 
-@implementation AWTTrayIconView
+@implementation AWTTrayIconmenuDelegate
 
 -(id)initWithTrayIcon:(AWTTrayIcon *)theTrayIcon {
     self = [super init];
@@ -305,7 +305,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     return NULL;
 }
 
-@end //AWTTrayIconView
+@end //AWTTrayIconmenuDelegate
 //================================================
 
 /*
