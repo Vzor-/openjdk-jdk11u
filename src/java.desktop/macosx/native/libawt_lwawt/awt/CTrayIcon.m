@@ -91,7 +91,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
                                                 options: options
                                                 owner: self
                                                 userInfo: nil];
-    [button addTrackingArea:trackingArea];
+    [[theItem button] addTrackingArea:trackingArea];
 }
 
 -(void) dealloc {
@@ -206,12 +206,12 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     JNIEnv *env = [ThreadUtilities getJNIEnv];
     static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
     static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
-    jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
+    jlong res = JNFCallLongMethod(env, view.trayIcon.peer, jm_getPopupMenuModel);
 
     if (res != 0) {
         CPopupMenu *cmenu = jlong_to_ptr(res);
         NSMenu* menu = [cmenu menu];
-        [menu setDelegate:self];
+        [menu setDelegate:view];
         [theItem popUpStatusItemMenu: [view menu]];
         [view setNeedsDisplay:YES];
     }
