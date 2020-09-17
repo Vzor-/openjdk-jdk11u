@@ -46,6 +46,7 @@ extern "C" {
     jobject peer;
     AWTTrayIconView *view;
     NSStatusItem *theItem;
+    NSTrackingArea *trackingArea;
 }
 
 - (id) initWithPeer:(jobject)thePeer;
@@ -57,8 +58,7 @@ extern "C" {
 - (NSPoint) getLocationOnScreen;
 - (void) deliverJavaMouseEvent:(NSEvent*) event;
 - (void) setMenu:(NSMenu *)menu;
-- (void) updateMenuRes;
-- (void) stuffHappened:(id)sender;
+- (void) mouseDown:(id)sender;
 
 @end //AWTTrayIcon
 
@@ -69,7 +69,6 @@ extern "C" {
 @public
     AWTTrayIcon *trayIcon;
     NSImage* image;
-    NSTrackingArea *trackingArea;
     BOOL isHighlighted;
 }
 -(id)initWithTrayIcon:(AWTTrayIcon *)theTrayIcon;

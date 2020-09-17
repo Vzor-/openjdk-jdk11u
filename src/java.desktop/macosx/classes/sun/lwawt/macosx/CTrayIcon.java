@@ -104,8 +104,6 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
     }
 
     private native long nativeCreate();
-
-    public native void nativeUpdateMenuRes(long trayIconModel);
     public native void nativeSetTemplate(long trayIconModel, boolean template);
 
     //invocation from the AWTTrayIcon.m
@@ -196,17 +194,24 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
         }
     }
 
-    @Override
-    public void updatePopupMenu() {
-        execute(ptr -> nativeUpdateMenuRes(ptr));
-    }
-
-    @Override
     public void setTemplate(boolean template) {
         execute(ptr -> nativeSetTemplate(ptr, template));        
     }
 
     void updateNativeImage(Image image) {
+        final String isTemplate = "sun.awt.enableMacOSTemplateImages";
+        AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
+            isTemplateEnabled =
+                 Boolean.parseBoolean(System.getProperty(isTemplate, "false"));
+            //set system property if not yet assigned
+            System.setProperty(isTemplate, ""+isTemplateEnabled);
+            // Todo: is this line needed? is any of this needed
+            // initAppkit(ThreadGroupUtils.getRootThreadGroup(),
+            //            GraphicsEnvironment.isHeadless());
+            return null;
+        });
+
+
         MediaTracker tracker = new MediaTracker(new Button(""));
         tracker.addImage(image, 0);
         try {
@@ -227,6 +232,7 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
                     setNativeImage(ptr, imagePtr, imageAutoSize);
                 });
             });
+            setTemplate();
         }
     }
 

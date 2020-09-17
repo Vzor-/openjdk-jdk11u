@@ -68,15 +68,30 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     [theItem retain];
 
     view = [[AWTTrayIconView alloc] initWithTrayIcon:self];
+    trackingArea = nil;
+
+    [self addTrackingArea];
+
 
     //[theItem setMenu: [view getMenu]];
-    theItem.button.action = @selector(stuffHappened:);
+    theItem.button.action = @selector(mouseDown:);
     theItem.button.target = self;
     return self;
 }
 
 -(void) setMenu:(NSMenu *) menu{
     [theItem setMenu: menu];
+}
+
+- (void)addTrackingArea {
+    NSTrackingAreaOptions options = NSTrackingMouseMoved |
+                                    NSTrackingInVisibleRect |
+                                    NSTrackingActiveAlways;
+    trackingArea = [[NSTrackingArea alloc] initWithRect: CGRectZero
+                                                options: options
+                                                owner: self
+                                                userInfo: nil];
+    [button addTrackingArea:trackingArea];
 }
 
 -(void) dealloc {
@@ -93,6 +108,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     // [view setTrayIcon: nil];
     // [view release];
 
+    [trackingArea release];
     [theItem release];
 
     [super dealloc];
@@ -184,9 +200,57 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 
-- (void) stuffHappened:(id)sender {
-    NSLog(@"StatusItem hit.");
-    [theItem popUpStatusItemMenu : [view getMenu]];
+- (void) mouseDown:(NSEvent *)event {    
+    [self deliverJavaMouseEvent: event];
+    //find CTrayIcon.getPopupMenuModel method and call it to get popup menu ptr.
+    JNIEnv *env = [ThreadUtilities getJNIEnv];
+    static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
+    static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
+    jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
+
+    if (res != 0) {
+        CPopupMenu *cmenu = jlong_to_ptr(res);
+        NSMenu* menu = [cmenu menu];
+        [menu setDelegate:self];
+        [theItem popUpStatusItemMenu: [view menu]];
+        [view setNeedsDisplay:YES];
+    }
+}
+
+- (void) mouseUp:(NSEvent *)event {
+    [self deliverJavaMouseEvent: event];
+}
+
+- (void) mouseDragged:(NSEvent *)event {
+    [self deliverJavaMouseEvent: event];
+}
+
+- (void) mouseMoved: (NSEvent *)event {
+    [self deliverJavaMouseEvent: event];
+}
+
+- (void) rightMouseDown:(NSEvent *)event {
+    [self deliverJavaMouseEvent: event];
+}
+
+- (void) rightMouseUp:(NSEvent *)event {
+    [self deliverJavaMouseEvent: event];
+}
+
+- (void) rightMouseDragged:(NSEvent *)event {
+    [self deliverJavaMouseEvent: event];
+}
+
+- (void) otherMouseDown:(NSEvent *)event {
+    [self deliverJavaMouseEvent: event];
+}
+
+- (void) otherMouseUp:(NSEvent *)event {
+    [self deliverJavaMouseEvent: event];
+}
+
+- (void) otherMouseDragged:(NSEvent *)event {
+    [self deliverJavaMouseEvent: event];
 }
 
 @end //AWTTrayIcon
@@ -199,13 +263,11 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
     [self setTrayIcon: theTrayIcon];
     image = nil;
-    trackingArea = nil;
 
     return self;
 }
 -(void) dealloc {
     [image release];
-    [trackingArea release];
     [super dealloc];
 }
 
@@ -221,24 +283,6 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
 -(void)setTrayIcon:(AWTTrayIcon*)theTrayIcon {
     trayIcon = theTrayIcon;
-}
-
-- (void)updateMenuRes {
-    // JNIEnv *env = [ThreadUtilities getJNIEnv];
-    // static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
-    // static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
-    // jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
-    // NSMenu* newMenu;
-    // if (res != 0) {
-    //     CPopupMenu *cmenu = jlong_to_ptr(res);
-    //     newMenu = [cmenu menu];
-    //     [newMenu setDelegate:self];
-    // } else {
-    //     NSLog(@"null java ref");
-    //     newMenu = [[NSMenu alloc] initWithTitle:@""];
-    //     [newMenu setDelegate:self]; 
-    // }
-    // [trayIcon setMenu: newMenu];
 }
 
 - (NSMenu *) getMenu {
