@@ -317,7 +317,6 @@ public class TrayIcon {
                 this.popup.isTrayIconPopup = false;
             }
             this.popup = popup;
-            this.peer.updatePopupMenu();
         }
     }
 
