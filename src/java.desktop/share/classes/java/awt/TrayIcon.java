@@ -261,7 +261,6 @@ public class TrayIcon {
         TrayIconPeer peer = this.peer;
         if (peer != null) {
             peer.updateImage();
-            peer.setTemplate(template);
         }
     }
 
@@ -399,27 +398,6 @@ public class TrayIcon {
      */
     public boolean isImageAutoSize() {
         return autosize;
-    }
-
-    /**
-     * todo:
-     * @return todo: 
-     */
-    public boolean isTemplate() {
-        return template;
-    }
-
-    /**
-     * todo:
-     * @param template todo:
-     */
-    public void setTemplate(boolean template) {
-        this.template = template;
-
-        TrayIconPeer peer = this.peer;
-        if (peer != null) {
-            peer.setTemplate(template);
-        }
     }
 
     /**
@@ -719,7 +697,6 @@ public class TrayIcon {
             }
         }
         peer.setToolTip(tooltip);
-        peer.setTemplate(template);
     }
 
     void removeNotify() {
