@@ -202,7 +202,7 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
         // AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
             boolean isTemplateEnabled = Boolean.parseBoolean(System.getProperty("sun.awt.enableMacOSTemplateImages", "false"));
             //set system property if not yet assigned
-            System.setProperty(isTemplate, ""+isTemplateEnabled);
+            // System.setProperty(isTemplate, ""+isTemplateEnabled);
             // Todo: is this line needed? is any of this needed
             // initAppkit(ThreadGroupUtils.getRootThreadGroup(),
             //            GraphicsEnvironment.isHeadless());
