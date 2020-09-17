@@ -58,7 +58,7 @@ extern "C" {
 - (NSPoint) getLocationOnScreen;
 - (void) deliverJavaMouseEvent:(NSEvent*) event;
 - (void) setMenu:(NSMenu *)menu;
-- (void) mouseDown:(id)sender;
+- (void) mouseDown:(NSEvent *)sender;
 - (void) mouseUp:(NSEvent *)event;
 - (void) mouseDragged:(NSEvent *)event;
 - (void) mouseMoved: (NSEvent *)event;

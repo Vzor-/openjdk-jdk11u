@@ -73,7 +73,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     //[theItem setMenu: [menuDelegate getMenu]];
     theItem.button.action = @selector(mouseDown:);
     theItem.button.target = self;
-    [self addTrackingArea];
+    // [self addTrackingArea];
     return self;
 }
 
