@@ -89,7 +89,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
                                                 options: options
                                                 owner: self
                                                 userInfo: nil];
-    [[theItem button] addTrackingArea:trackingArea];
+    // [[theItem button] addTrackingArea:trackingArea];
 }
 
 -(void) dealloc {
@@ -144,12 +144,12 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void) setTemplate:(BOOL)template {
-    NSLog(@"Setting template to %d", template);
     [[[theItem button] image] setTemplate: template];
     [[theItem button] setNeedsDisplay: true];
 }
 
 -(void) deliverJavaMouseEvent: (NSEvent *) event {
+    //Todo: fix
     // [AWTToolkit eventCountPlusPlus];
 
     // JNIEnv *env = [ThreadUtilities getJNIEnv];
@@ -289,14 +289,12 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     static JNF_CLASS_CACHE(jc_CTrayIcon, "sun/lwawt/macosx/CTrayIcon");
     static JNF_MEMBER_CACHE(jm_getPopupMenuModel, jc_CTrayIcon, "getPopupMenuModel", "()J");
     jlong res = JNFCallLongMethod(env, trayIcon.peer, jm_getPopupMenuModel);
-    NSLog(@"menu init"); 
     if (res != 0) {
         CPopupMenu *cmenu = jlong_to_ptr(res);
         NSMenu* menu = [cmenu menu];
         [menu setDelegate:self];
         return menu;
     } else {
-        NSLog(@"null java ref");
         NSMenu* menu = [[NSMenu alloc] initWithTitle:@""];
         [menu setDelegate:self];
         return menu;                 
@@ -337,24 +335,6 @@ JNF_COCOA_EXIT(env);
 JNIEXPORT void JNICALL Java_java_awt_TrayIcon_initIDs
 (JNIEnv *env, jclass cls) {
     //Do nothing.
-}
-
-/*
- * Class: sun_lwawt_macosx_CTrayIcon
- * Method: nativeUpdateMenuRes
- * Signature: (J)V
- */
-JNIEXPORT void JNICALL Java_sun_lwawt_macosx_CTrayIcon_nativeUpdateMenuRes
-(JNIEnv *env, jobject self, jlong model) {
-JNF_COCOA_ENTER(env);
-    NSLog(@"Menu reference changed");
-
-    AWTTrayIcon *icon = jlong_to_ptr(model);
-    [ThreadUtilities performOnMainThreadWaiting:YES block:^(){
-        [icon updateMenuRes];
-    }];
-
-JNF_COCOA_EXIT(env);
 }
 
 /*
