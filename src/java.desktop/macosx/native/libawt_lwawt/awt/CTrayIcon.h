@@ -59,7 +59,15 @@ extern "C" {
 - (void) deliverJavaMouseEvent:(NSEvent*) event;
 - (void) setMenu:(NSMenu *)menu;
 - (void) mouseDown:(id)sender;
-
+- (void) mouseUp:(NSEvent *)event;
+- (void) mouseDragged:(NSEvent *)event;
+- (void) mouseMoved: (NSEvent *)event;
+- (void) rightMouseDown:(NSEvent *)event;
+- (void) rightMouseUp:(NSEvent *)event;
+- (void) rightMouseDragged:(NSEvent *)event;
+- (void) otherMouseDown:(NSEvent *)event;
+- (void) otherMouseUp:(NSEvent *)event;
+- (void) otherMouseDragged:(NSEvent *)event;
 @end //AWTTrayIcon
 
 //==================================================================================
