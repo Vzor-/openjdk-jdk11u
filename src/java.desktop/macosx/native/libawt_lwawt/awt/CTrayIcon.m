@@ -70,7 +70,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     menuDelegate = [[AWTTrayIconDelegate alloc] initWithTrayIcon:self];
     trackingArea = nil;
 
-    [self addTrackingArea];
+    // [self addTrackingArea];
 
 
     //[theItem setMenu: [menuDelegate getMenu]];
@@ -85,6 +85,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
 - (void)addTrackingArea {
     NSTrackingAreaOptions options = NSTrackingMouseMoved |
+                                    NSTrackingInVisibleRect |
                                     NSTrackingActiveAlways;
     trackingArea = [[NSTrackingArea alloc] initWithRect: [[theItem button] bounds]
                                                 options: options
@@ -200,6 +201,8 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 
 
 - (void) mouseDown:(NSEvent *)event {    
+    
+    [self addTrackingArea];
     //todo [self deliverJavaMouseEvent: event];
     //find CTrayIcon.getPopupMenuModel method and call it to get popup menu ptr.
     JNIEnv *env = [ThreadUtilities getJNIEnv];
