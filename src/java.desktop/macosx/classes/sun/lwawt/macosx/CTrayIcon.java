@@ -201,7 +201,7 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
     void updateNativeImage(Image image) {
         final String isTemplate = "sun.awt.enableMacOSTemplateImages";
         // AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
-        //     isTemplateEnabled =
+            isTemplateEnabled =
                  Boolean.parseBoolean(System.getProperty(isTemplate, "false"));
             //set system property if not yet assigned
             System.setProperty(isTemplate, ""+isTemplateEnabled);
@@ -232,7 +232,7 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
                     setNativeImage(ptr, imagePtr, imageAutoSize);
                 });
             });
-            setTemplate();
+            setTemplate(isTemplateEnabled);
         }
     }
 
