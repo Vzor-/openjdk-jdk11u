@@ -67,7 +67,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     theItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [theItem retain];
 
-    menuDelegate = [[AWTTrayIconmenuDelegate alloc] initWithTrayIcon:self];
+    menuDelegate = [[AWTTrayIconDelegate alloc] initWithTrayIcon:self];
     trackingArea = nil;
 
     [self addTrackingArea];
@@ -256,7 +256,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 @end //AWTTrayIcon
 //================================================
 
-@implementation AWTTrayIconmenuDelegate
+@implementation AWTTrayIconDelegate
 
 -(id)initWithTrayIcon:(AWTTrayIcon *)theTrayIcon {
     self = [super init];
@@ -305,7 +305,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     return NULL;
 }
 
-@end //AWTTrayIconmenuDelegate
+@end //AWTTrayIconDelegate
 //================================================
 
 /*
