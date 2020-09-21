@@ -42,7 +42,7 @@ extern "C" {
 /*
  * AWTTrayIcon
  */
-@interface AWTTrayIcon : NSObject {
+@interface AWTTrayIcon : NSResponder {
     jobject peer;
     AWTTrayIconDelegate *menuDelegate;
     NSStatusItem *theItem;

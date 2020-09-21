@@ -219,11 +219,11 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 - (void) mouseDragged:(NSEvent *)event {
-    // [self deliverJavaMouseEvent: event];
+    [self deliverJavaMouseEvent: event];
 }
 
 - (void) mouseMoved: (NSEvent *)event {
-    // [self deliverJavaMouseEvent: event];
+    [self deliverJavaMouseEvent: event];
 }
 
 - (void) rightMouseDown:(NSEvent *)event {
