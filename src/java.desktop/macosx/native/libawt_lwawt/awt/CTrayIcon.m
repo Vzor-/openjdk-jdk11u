@@ -147,6 +147,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 -(void) deliverJavaMouseEvent: (NSEvent *) event {
+    NSLog(@"%@", evert);
     [AWTToolkit eventCountPlusPlus];
 
     JNIEnv *env = [ThreadUtilities getJNIEnv];
