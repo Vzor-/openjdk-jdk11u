@@ -147,7 +147,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
 }
 
 -(void) deliverJavaMouseEvent: (NSEvent *) event {
-    //Todo: fix
+    /*
     [AWTToolkit eventCountPlusPlus];
 
     JNIEnv *env = [ThreadUtilities getJNIEnv];
@@ -211,7 +211,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
         [theItem popUpStatusItemMenu: menu];
         // todo what needsdisplay
         // [menuDelegate setNeedsDisplay:YES];
-    }
+    }*/
 }
 
 - (void) mouseUp:(NSEvent *)event {
