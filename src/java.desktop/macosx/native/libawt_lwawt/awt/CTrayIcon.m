@@ -192,7 +192,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     static JNF_CLASS_CACHE(jc_TrayIcon, "sun/lwawt/macosx/CTrayIcon");
     static JNF_MEMBER_CACHE(jm_handleMouseEvent, jc_TrayIcon, "handleMouseEvent", "(Lsun/lwawt/macosx/NSEvent;)V");
     JNFCallVoidMethod(env, peer, jm_handleMouseEvent, jEvent);
-    (*env)->DeleteLocalRef(env, jEvent);
+    (*env)->DeleteLocalRef(env, jEvent);*/
 }
 
 
@@ -211,7 +211,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
         [theItem popUpStatusItemMenu: menu];
         // todo what needsdisplay
         // [menuDelegate setNeedsDisplay:YES];
-    }*/
+    }
 }
 
 - (void) mouseUp:(NSEvent *)event {
