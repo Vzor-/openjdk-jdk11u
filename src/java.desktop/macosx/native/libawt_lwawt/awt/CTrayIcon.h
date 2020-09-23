@@ -53,8 +53,7 @@ extern "C" {
 - (void) setTooltip:(NSString *)tooltip;
 - (NSStatusItem *)theItem;
 - (jobject) peer;
-- (void) setImage:(NSImage *) imagePtr sizing:(BOOL)autosize;
-- (void) setTemplate:(BOOL)template;
+- (void) setImage:(NSImage *) imagePtr sizing:(BOOL)autosize isTemplate:(BOOL)template;
 - (NSPoint) getLocationOnScreen;
 - (void) deliverJavaMouseEvent:(NSEvent*) event;
 - (void) setMenu:(NSMenu *)menu;

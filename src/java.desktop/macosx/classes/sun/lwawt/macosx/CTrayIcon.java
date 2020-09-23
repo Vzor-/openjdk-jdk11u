@@ -104,7 +104,6 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
     }
 
     private native long nativeCreate();
-    public native void nativeSetTemplate(long trayIconModel, boolean isTemplate);
 
     //invocation from the AWTTrayIcon.m
     public long getPopupMenuModel() {
@@ -214,14 +213,13 @@ public class CTrayIcon extends CFRetainedResource implements TrayIconPeer {
         if (cimage != null) {
             cimage.execute(imagePtr -> {
                 execute(ptr -> {
-                    setNativeImage(ptr, imagePtr, imageAutoSize);
+                    setNativeImage(ptr, imagePtr, imageAutoSize, isTemplateEnabled);
                 });
             });
-            execute(ptr -> nativeSetTemplate(ptr, isTemplateEnabled));
         }
     }
 
-    private native void setNativeImage(final long model, final long nsimage, final boolean autosize);
+    private native void setNativeImage(final long model, final long nsimage, final boolean autosize, final boolean template);
 
     private void postEvent(final AWTEvent event) {
         SunToolkit.executeOnEventHandlerThread(target, new Runnable() {

@@ -125,7 +125,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     return peer;
 }
 
-- (void) setImage:(NSImage *) imagePtr sizing:(BOOL)autosize {
+- (void) setImage:(NSImage *) imagePtr sizing:(BOOL)autosize isTemplate:(BOOL)template {
     NSSize imageSize = [imagePtr size];
     NSSize scaledSize = ScaledImageSizeForStatusBar(imageSize, autosize);
     if (imageSize.width != scaledSize.width ||
@@ -136,12 +136,7 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     CGFloat itemLength = scaledSize.width + 2.0*kImageInset;
     [theItem setLength:itemLength];
     theItem.button.image = imagePtr;
-    //TODO: Remove setTemplate(...), set directly
-    // theItem.button.image.template = isTemplate;
 
-}
-
-- (void) setTemplate:(BOOL)template {
     [[[theItem button] image] setTemplate: template];
     [[theItem button] setNeedsDisplay: true];
 }
@@ -337,23 +332,6 @@ JNIEXPORT void JNICALL Java_java_awt_TrayIcon_initIDs
 }
 
 /*
- * Class: sun_lwawt_macosx_CTrayIcon
- * Method: nativeSetTemplate
- * Signature: (JZ)V
- */
-JNIEXPORT void JNICALL Java_sun_lwawt_macosx_CTrayIcon_nativeSetTemplate
-(JNIEnv *env, jobject self, jlong model, BOOL template) {
-JNF_COCOA_ENTER(env);
-
-    AWTTrayIcon *icon = jlong_to_ptr(model);
-    [ThreadUtilities performOnMainThreadWaiting:NO block:^(){
-        [icon setTemplate:template];
-    }];
-
-JNF_COCOA_EXIT(env);
-}
-
-/*
  * Class:     sun_lwawt_macosx_CTrayIcon
  * Method:    nativeSetToolTip
  * Signature: (JLjava/lang/String;)V
@@ -374,15 +352,15 @@ JNF_COCOA_EXIT(env);
 /*
  * Class:     sun_lwawt_macosx_CTrayIcon
  * Method:    setNativeImage
- * Signature: (JJZ)V
+ * Signature: (JJZZ)V
  */
 JNIEXPORT void JNICALL Java_sun_lwawt_macosx_CTrayIcon_setNativeImage
-(JNIEnv *env, jobject self, jlong model, jlong imagePtr, jboolean autosize) {
+(JNIEnv *env, jobject self, jlong model, jlong imagePtr, jboolean autosize, jboolean template) {
 JNF_COCOA_ENTER(env);
 
     AWTTrayIcon *icon = jlong_to_ptr(model);
     [ThreadUtilities performOnMainThreadWaiting:YES block:^(){
-        [icon setImage:jlong_to_ptr(imagePtr) sizing:autosize];
+        [icon setImage:jlong_to_ptr(imagePtr) sizing:autosize isTemplate:template];
     }];
 
 JNF_COCOA_EXIT(env);
