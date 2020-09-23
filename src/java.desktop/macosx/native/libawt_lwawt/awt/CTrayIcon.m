@@ -151,10 +151,6 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     NSPoint localPoint = [[theItem button] convertPoint: eventLocation fromView: nil];
     localPoint.y = [[theItem button] bounds].size.height - localPoint.y;
 
-    // todo
-    // NSPoint localPoint = [menuDelegate convertPoint: eventLocation fromView: nil];
-    // localPoint.y = [menuDelegate bounds].size.height - localPoint.y;
-
     NSPoint absP = [NSEvent mouseLocation];
     NSEventType type = [event type];
 
