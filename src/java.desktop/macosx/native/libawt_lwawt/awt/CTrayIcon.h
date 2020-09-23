@@ -61,7 +61,7 @@ extern "C" {
 - (void) mouseDown:(id)sender;
 - (void) mouseUp:(NSEvent *)event;
 - (void) mouseDragged:(NSEvent *)event;
-- (void) mouseMoved: (id)event;
+- (void) mouseMoved: (NSEvent *)event;
 - (void) rightMouseDown:(NSEvent *)event;
 - (void) rightMouseUp:(NSEvent *)event;
 - (void) rightMouseDragged:(NSEvent *)event;
