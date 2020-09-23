@@ -68,7 +68,6 @@ static NSSize ScaledImageSizeForStatusBar(NSSize imageSize, BOOL autosize) {
     [theItem retain];
 
     menuDelegate = [[AWTTrayIconDelegate alloc] initWithTrayIcon:self];
-    trackingArea = nil;
 
     [theItem.button sendActionOn: NSEventMaskLeftMouseDown | NSEventMaskRightMouseDown];
     theItem.button.action = @selector(mouseDown:);
